@@ -41,6 +41,7 @@ Data dibagi menjadi:
 ├── src/
 │   ├── preprocess.py
 │   └── build_dataset.py
+    └── splitting_data.py
 ```
 
 ---
