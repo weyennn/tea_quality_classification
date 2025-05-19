@@ -1,0 +1,22 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+teh_venv
+
+# Output and model files
+output/
+*.joblib
+*.h5
+
+# VSCode
+.vscode/
