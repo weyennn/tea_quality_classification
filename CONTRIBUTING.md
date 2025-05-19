@@ -1,10 +1,6 @@
 
 # Panduan Kontribusi – Klasifikasi Kualitas Teh
 
-Halo, terima kasih telah tertarik untuk berkontribusi di proyek ini! 🎉
-
-Berikut adalah beberapa panduan sederhana agar kolaborasi kita bisa berjalan lancar dan terstruktur.
-
 ---
 
 ## Cara Berkontribusi
