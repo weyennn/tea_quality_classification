@@ -14,7 +14,7 @@ Berikut adalah beberapa panduan sederhana agar kolaborasi kita bisa berjalan lan
 
 2. **Clone repo hasil fork ke komputer kamu**
    ```bash
-   git clone https://github.com/usernamekamu/tea-classifier.git
+   git clone https://github.com/weyennn/tea-classifier.git
    cd tea-classifier
    ```
 
