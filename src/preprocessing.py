@@ -17,6 +17,12 @@ def extract_features(df):
         features[f'{col}_std'] = data.std()
         features[f'{col}_max'] = data.max()
         features[f'{col}_min'] = data.min()
+        features[f'{col}_var'] = data.var()
+        features[f'{col}_mode'] = data.mode()[0]
+        features[f'{col}_q1'] = data.quantile(0.25)
+        features[f'{col}_med'] = data.median()
+        features[f'{col}_q3'] = data.quantile(0.75)
+        features[f'{col}_range'] = abs(data.max() - data.min())
         features[f'{col}_skew'] = skew(data)
         features[f'{col}_kurt'] = kurtosis(data)
     return features
