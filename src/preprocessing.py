@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from scipy.stats import skew, kurtosis
+# from scipy.stats import skew, kurtosis
+from scipy.stats.mstats import skew, kurtosis
 
 def convert_to_voltage(df):
     for col in df.columns:
