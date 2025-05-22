@@ -107,4 +107,4 @@ Evaluasi dilakukan dengan:
 
 ## 👤 Pembuat
 
-Dikembangkan oleh [@weyennn](https://github.com/weyennn) dengan ☕ dan data.
+Dikembangkan oleh kelompok mata kuliah PKA
