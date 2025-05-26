@@ -1,8 +1,8 @@
 import os
-from src.build_dataset import build_dataset
 import shutil
 import random
 import pandas as pd
+from src.build_dataset import build_dataset
 
 def split_sensor_files(source_dir="data", output_dir="output", split_ratio=0.8, seed=42):
     random.seed(seed)
@@ -41,19 +41,19 @@ def split_sensor_files(source_dir="data", output_dir="output", split_ratio=0.8, 
 
 def main():
     print("[STEP 1] Splitting data sensor mentah...")
-    split_sensor_files()
+    split_sensor_files(source_dir="data", output_dir="output")
 
-    print("[STEP 2] Ekstraksi fitur dari train dan test...")
-    df_train = build_dataset(base_path="output/train")
-    df_test = build_dataset(base_path="output/test")
+    print("[STEP 2] Ekstraksi fitur + ADASYN...")
+    df_train = build_dataset(base_path="output/train", apply_adasyn=True)
+    df_test = build_dataset(base_path="output/test", apply_adasyn=True)
 
     print("[STEP 3] Menyimpan dataset hasil ekstraksi...")
     df_train.to_csv("output/train_dataset.csv", index=False)
     df_test.to_csv("output/test_dataset.csv", index=False)
 
     print("[DONE] Dataset siap digunakan!")
-    print(" - train_dataset.csv")
-    print(" - test_dataset.csv")
+    print(" - output/train_dataset.csv")
+    print(" - output/test_dataset.csv")
 
 if __name__ == "__main__":
     main()
