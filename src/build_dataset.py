@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 from imblearn.over_sampling import ADASYN
-
 from src.preprocessing import convert_to_voltage, extract_features
 
 def build_dataset(base_path='data_teh', apply_adasyn=True):

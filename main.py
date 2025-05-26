@@ -40,6 +40,7 @@ def split_sensor_files(source_dir="data", output_dir="output", split_ratio=0.8, 
     print(f" - Test folder : {test_dir}")
 
 def main():
+
     print("[STEP 1] Splitting data sensor mentah...")
     split_sensor_files(source_dir="data", output_dir="output")
 

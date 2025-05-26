@@ -1,6 +1,7 @@
 import pandas as pd
 from scipy.stats.mstats import skew, kurtosis
 
+
 def convert_to_voltage(df):
     # Ubah semua nilai ke numerik, lalu hilangkan baris dengan NaN
     for col in df.columns:
