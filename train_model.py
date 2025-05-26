@@ -6,10 +6,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
 import joblib
+
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
+import lightgbm as lgb
 
 def train_model_xgboost(train_path="output/train_dataset.csv", test_path="output/test_dataset.csv", model_path="output/model_xgb_teh.pkl"):
     # Load data
@@ -352,9 +354,82 @@ def train_model_knn(train_path="output/train_dataset.csv", test_path="output/tes
 
     # Confusion Matrix
 
+def train_model_lightgbm(train_path="output/train_dataset.csv", test_path="output/test_dataset.csv", model_path="output/model_lgbm_teh.pkl"):
+    print(f"--- Training LightGBM Model ({model_path}) ---")
+
+    # Load data
+    try:
+        df_train = pd.read_csv(train_path)
+        df_test = pd.read_csv(test_path)
+    except FileNotFoundError:
+        print(f"Error: Ensure '{train_path}' and '{test_path}' exist.")
+        return
+
+    X_train = df_train.drop(columns=["label"])
+    y_train = df_train["label"]
+    X_test = df_test.drop(columns=["label"])
+    y_test = df_test["label"]
+
+    # Encode label
+    le = LabelEncoder()
+    y_train_enc = le.fit_transform(y_train)
+    y_test_enc = le.transform(y_test)
+
+    # Hyperparameter grid for LightGBM
+    param_grid = {
+        'n_estimators': [100, 200],
+        'learning_rate': [0.05, 0.1],
+        'max_depth': [-1, 10, 20],
+        'num_leaves': [31, 50],
+        'subsample': [0.8, 1.0],
+        'colsample_bytree': [0.8, 1.0]
+    }
+
+    # Grid search
+    print("Melakukan pencarian hyperparameter (GridSearchCV) untuk LightGBM...")
+    lgb_model = lgb.LGBMClassifier(random_state=42)
+    grid_search = GridSearchCV(
+        estimator=lgb_model,
+        param_grid=param_grid,
+        scoring='accuracy',
+        cv=3,
+        verbose=1,
+        n_jobs=-1
+    )
+    grid_search.fit(X_train, y_train_enc)
+
+    best_model = grid_search.best_estimator_
+    print(f"Model terbaik (LightGBM): {grid_search.best_params_}")
+
+    # Save best model and label encoder
+    joblib.dump(best_model, model_path)
+    joblib.dump(le, "output/label_encoder_lgbm.pkl")
+    print(f"Model LightGBM disimpan ke: {model_path}")
+
+    # Prediksi
+    y_pred_enc = best_model.predict(X_test)
+    y_pred = le.inverse_transform(y_pred_enc)
+
+    # Evaluasi
+    print("\n[Classification Report - LightGBM]")
+    print(classification_report(y_test, y_pred))
+
+    # Confusion Matrix
+    cm = confusion_matrix(y_test, y_pred, labels=le.classes_)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='YlGnBu', xticklabels=le.classes_, yticklabels=le.classes_)
+    plt.title("Confusion Matrix (LightGBM + Hyperparameter Tuning)")
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.tight_layout()
+    plt.show()
+    print("-" * 50 + "\n")
+
+
 if __name__ == "__main__":
-    train_model_xgboost()
-    # train_model_random_forest()
+    # train_model_xgboost()
+    train_model_random_forest()
     # train_model_logistic_regression()
     # train_model_knn()
     # train_model_svm()
+    # train_model_lightgbm()
