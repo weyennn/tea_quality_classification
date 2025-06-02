@@ -5,7 +5,7 @@ import random
 def split_sensor_files(
     source_dir="data",
     output_dir="output",
-    split_ratio=0.8,
+    split_ratio=0.80,
     seed=42
 ):
     random.seed(seed)

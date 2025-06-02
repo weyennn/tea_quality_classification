@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from src.preprocessing import convert_to_voltage, extract_features
 
-def build_dataset(base_path='data_teh'):
+def build_dataset(base_path='data'):
     records = []
 
     for label in os.listdir(base_path):
